@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Backorder Prediction</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    
+    <style>
+    #booking 
+    {
+	font-family: 'Lato', sans-serif;
+    background: url(../static/light_blue.jpg);
+	background-size: cover;
+	background-position: center;
+	color: #ffffff;
+    }
+    </style>
+    <!--<img src="{{url_for('static', filename='background.png')}}" />-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+    <div id="booking" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="booking-cta">
+                            <h1 color= "#ffffff">Backorder Prediction</h1>
+                            <p></p>
+                            <div class="container">
+                                <!-- {{ prediction_text }} -->
+                                {% if prediction_text == 0 %}
+                                <h2>The Product is not in Backorder</h2>
+
+                                {% elif prediction_text == 1 %}
+                                <h2>The Product is in Backorder</h2>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 col-md-offset-1">
+                        <div class="booking-form">
+                            <form action="{{ url_for('predict_data') }}" method="post">
+                               
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <span class="form-label">Product</span>
+                                                <select class="form-control" name="product" required="true">
+                                                    <option value="Apple iPhone 12">Apple iPhone 12</option>
+                                                    <option value="Apple iPhone 12 Mini">Apple iPhone 12 Mini</option>
+                                                    <option value="Apple iPhone 13">Apple iPhone 13</option>
+                                                    <option value="Apple iPhone 13 Mini">Apple iPhone 13 Mini</option>
+                                                    <option value="Apple iPhone 13 Pro">Apple iPhone 13 Pro</option>
+                                                    <option value="Apple iPhone 13 Pro Max">Apple iPhone 13 Pro Max</option>
+                                                    <option value="Apple iPhone 14">Apple iPhone 14</option>
+                                                    <option value="Apple iPhone 14 Plus">Apple iPhone 14 Plus</option>
+                                                    <option value="Apple iPhone 14 Pro">Apple iPhone 14 Pro</option>
+                                                    <option value="Apple iPhone 14 Pro Max">Apple iPhone 14 Pro Max</option>
+                                                    <option value="Apple MacBook Air">Apple MacBook Air</option>
+                                                    <option value="Apple MacBook Pro">Apple MacBook Pro</option>
+                                                    <option value="Seagate NVME SSD 128 GB">Seagate NVME SSD 128 GB</option>
+                                                    <option value="Seagate NVME SSD 256 GB">Seagate NVME SSD 256 GB</option>
+                                                    <option value="Seagate NVME SSD 512 GB">Seagate NVME SSD 512 GB</option>
+                                                    <option value="Apple Airpods Pro">Apple Airpods Pro</option>
+                                                    <option value="Apple Airpods Pro 2">Apple Airpods Pro 2</option>
+                                                    <option value="Apple Airpods">Apple Airpods</option>
+                                                    <option value="Apple Airpods 2">Apple Airpods 2</option>
+                                                    <option value="Apple Airpods 3">Apple Airpods 3</option>
+                                                    <option value="Kingston RAM 4 GB">Kingston RAM 4 GB</option>
+                                                    <option value="Kingston RAM 8 GB">Kingston RAM 8 GB</option>
+                                                    <option value="Kingston RAM 16 GB">Kingston RAM 16 GB</option>
+                                                    <option value="Kingston RAM 32 GB">Kingston RAM 32 GB</option>
+                                                    <option value="WD NVMe SSD 128 GB">WD NVMe SSD 128 GB</option>
+                                                    <option value="WD NVMe 256 GB">WD NVMe 256 GB</option>
+                                                    <option value="WD NVMe 512 GB">WD NVMe 512 GB</option>
+                                                    <option value="Crucial SSD 500 GB">Crucial SSD 500 GB</option>
+                                                    <option value="Crucial SSD 1 TB">Crucial SSD 1 TB</option>
+                                                    <option value="Zebronics SSD 128 GB">Zebronics SSD 128 GB</option>
+                                                    <option value="Zebronics SSD 256 GB">Zebronics SSD 256 GB</option>
+                                                    <option value="Zebronics SSD 512 GB">Zebronics SSD 512 GB</option>
+                                                    <option value="Samsung SSD 1 TB">Samsung SSD 1 TB</option>
+                                                    <option value="Corsair RAM 16 GB">Corsair RAM 16 GB</option>
+                                                    <option value="AMD Radeon Graphics 8 GB">AMD Radeon Graphics 8 GB</option>
+                                                    <option value="Gigabyte GeForce GTX 1650 4GB">Gigabyte GeForce GTX 1650 4GB</option>
+                                                    <option value="Gigabyte GeForce GTX 1650 12GB">Gigabyte GeForce GTX 1650 12GB</option>
+                                                    <option value="Asus GeForce GTX 1650 12 GB">Asus GeForce GTX 1650 12 GB</option>
+                                                    <option value="Asus GeForce 3060Ti 16 GB">Asus GeForce 3060Ti 16 GB</option>
+                                                    <option value="MSI Gaming PC Case">MSI Gaming PC Case</option>
+                                                    <option value="Ant MidTower Computer Case">Ant MidTower Computer Case</option>
+                                                    <option value="Corsair Carbide Mid-Tower Gaming Case">Corsair Carbide Mid-Tower Gaming Case</option>
+                                                    <option value="Artis Joy 2.0 Slim Gaming Case">Artis Joy 2.0 Slim Gaming Case</option>
+                                                    <option value="Asus Vivobook 15 (2021)">Asus Vivobook 15 (2021)</option>
+                                                    <option value="Asus Vivobook 14 (2021)">Asus Vivobook 14 (2021)</option>
+                                                    <option value="Asus TUF Gaming A15">Asus TUF Gaming A15</option>
+                                                    <option value="Acer Aspire Lite">Acer Aspire Lite</option>
+                                                    <option value="Acer Aspire 5">Acer Aspire 5</option>
+                                                    <option value="Asus Vivobook 16X (2021)">Asus Vivobook 16X (2021)</option>
+                                                    <option value="Asus TUF Gaming F15">Asus TUF Gaming F15</option>
+                                                    <option value="Lenovo Thinkpad 15">Lenovo Thinkpad 15</option>
+                                                    <option value="Lenovo IdeaPad Slim 3">Lenovo IdeaPad Slim 3</option>
+                                                    <option value="Fujitsu UH-X 13.3">Fujitsu UH-X 13.3</option>
+                                                    <option value="Asus ROG Strix G18">Asus ROG Strix G18</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <!-- Product -->
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span class="form-label">3 Months Forecast</span>
+                                                <input type="text" class="form-control" name="forecast3" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Forecast3 -->
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span class="form-label">6 Months Forecast</span>
+                                                <input type="text" class="form-control" name="forecast6" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Forecast6 -->
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span class="form-label">9 Months Forecast</span>
+                                                <input type="text" class="form-control" name="forecast9" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Forecast9 -->
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Sales Quantity for Prior 1 Month</span>
+                                                <input type="text" class="form-control" name="sales1" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Sales1 -->
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Sales Quantity for Prior 3 Months</span>
+                                                <input type="text" class="form-control" name="sales3" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Sales3 -->
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Sales Quantity for Prior 6 Months</span>
+                                                <input type="text" class="form-control" name="sales6" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Sales6 -->
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Sales Quantity for Prior 9 Months</span>
+                                                <input type="text" class="form-control" name="sales9" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Sales9 -->
+
+                                </div>
+                                <!--Sales end-->
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <span class="form-label">Source Performance Rate for Prior 6 Months</span>
+                                                <input type="text" class="form-control" name="perf6" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Source Performance for Prior 6 Month Period -->
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <span class="form-label">Source Performance Rate for Prior 12 Months</span>
+                                                <input type="text" class="form-control" name="perf12" placeholder="" required="true">
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Source Performance for Prior 12 Month Period -->
+                                        
+                                </div>
+                                <!-- Source Performance -->
+
+                                <div class="form-btn">
+                                    <button class="submit-btn">Predict</button>
+                                </div>
+                                <!-- Button -->
+
+                            </form>
+                            <!--Form end-->
+
+                        </div>
+                        <!-- Booking form -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
